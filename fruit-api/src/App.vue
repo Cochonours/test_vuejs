@@ -2,7 +2,7 @@
   <div id="app">
     <ul>
       <li v-for="item in fruits" :key="item.id">
-        <base-fruit/>
+        <base-fruit :fruit="item"/>
       </li>
     </ul>
   </div>
@@ -25,7 +25,7 @@ export default {
   mounted() {
     // Get the list of fruits and update our data for display
     fruits_api.get_async().then(fruits => this.fruits = fruits)
-      .catch(() => alert('Fruit api not responding..'))
+     .catch(() => alert('Fruit api not responding..'))
   },
 }
 </script>

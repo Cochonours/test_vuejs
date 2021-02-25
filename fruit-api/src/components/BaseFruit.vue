@@ -1,12 +1,12 @@
 <template>
-    <div>Fruit</div>
+    <div>{{ fruit.name }}</div>
 </template>
 
 <script>
 export default {
   name: 'BaseFruit',
   props: {
-    msg: String
+    fruit: Object,
   }
 }
 </script>
