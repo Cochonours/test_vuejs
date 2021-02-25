@@ -67,9 +67,12 @@ function get_one_async(fruit_id) {
     .get(fruit_api_base_url + '/fruit/' + fruit_id)
 }
 
-
+function post_new_async(fruit) {
+  return axios.post(fruit_api_base_url + '/fruit', fruit)
+}
 
 export default {
   get_one_async,
   get_all_async,
+  post_new_async,
 }

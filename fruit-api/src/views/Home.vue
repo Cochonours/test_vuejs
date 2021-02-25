@@ -26,7 +26,7 @@ export default {
   mounted() {
     // Get the list of fruits and update our data for display
     fruits_api.get_all_async().then(fruits => this.fruits = fruits)
-     .catch(() => alert('Fruit api not responding..'))
+     .catch((e) => console.error(e) && alert('Fruit api not responding..'))
   },
 }
 </script>
