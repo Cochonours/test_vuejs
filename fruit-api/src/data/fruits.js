@@ -53,14 +53,24 @@ function extract_fruits_from_tree(dirty_fruits) {
 /** As the API gives weird result, we handle all of that here so the app
  * doesn't have to care about this.
  */
-function get_async() {
+function get_all_async() {
   return axios
     .get(fruit_api_base_url + '/fruit')
     .then(resp => extract_fruits_from_tree(resp.data.data))
 }
 
+/** Get one fruit
+ * @param {int} fruit_id
+ */
+function get_one_async(fruit_id) {
+  return axios
+    .get(fruit_api_base_url + '/fruit/' + fruit_id)
+    .then(resp => console.warn(resp))
+}
+
 
 
 export default {
-  get_async,
+  get_one_async,
+  get_all_async,
 }
