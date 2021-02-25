@@ -65,7 +65,6 @@ function get_all_async() {
 function get_one_async(fruit_id) {
   return axios
     .get(fruit_api_base_url + '/fruit/' + fruit_id)
-    .then(resp => console.warn(resp))
 }
 
 

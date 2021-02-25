@@ -1,34 +1,12 @@
 <template>
   <div id="app">
-    <ul>
-      <li v-for="item in fruits" :key="item.id">
-        <base-fruit :fruit="item"/>
-      </li>
-    </ul>
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/fruit">Add a fruit</router-link>
+    </div>
+    <router-view/>
   </div>
 </template>
-
-<script>
-import BaseFruit from './components/BaseFruit.vue'
-import fruits_api from './data/fruits'
-
-export default {
-  name: 'App',
-  components: {
-    BaseFruit
-  },
-  data() {
-    return {
-      fruits: []
-    }
-  },
-  mounted() {
-    // Get the list of fruits and update our data for display
-    fruits_api.get_all_async().then(fruits => this.fruits = fruits)
-     .catch(() => alert('Fruit api not responding..'))
-  },
-}
-</script>
 
 <style>
 #app {
@@ -37,7 +15,19 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 
 ul {

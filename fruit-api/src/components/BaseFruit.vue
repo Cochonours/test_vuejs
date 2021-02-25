@@ -1,5 +1,5 @@
 <template>
-  <a :href="get_url(fruit.id)" class="root">
+  <a :href="get_url(fruit.id)" :style="cssProps" class="root">
     <div class="image">
       <img :src="fruit.image" :alt="fruit.name" class="fruit_side">
     </div>
@@ -19,6 +19,13 @@ export default {
       return '/fruit/' + fruit_id
     }
   },
+  computed: {
+    cssProps() {
+      return {
+        '--fruit_color': this.fruit.color,
+      }
+    },
+  },
 }
 </script>
 
@@ -29,10 +36,12 @@ export default {
   margin: 1em;
   border: grey 1px solid;
   border-radius: 1em;
+  background-color: var(--fruit_color);
 }
 .image {
   height: 5em;
   width: 5em;
+  margin-right: 1em;
 }
 .image img {
   height: 100%;
