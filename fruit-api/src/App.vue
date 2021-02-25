@@ -1,18 +1,32 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <ul>
+      <li v-for="item in fruits" :key="item.id">
+        <base-fruit/>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import BaseFruit from './components/BaseFruit.vue'
+import fruits_api from './data/fruits'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    BaseFruit
+  },
+  data() {
+    return {
+      fruits: []
+    }
+  },
+  mounted() {
+    // Get the list of fruits and update our data for display
+    fruits_api.get_async().then(fruits => this.fruits = fruits)
+      .catch(() => alert('Fruit api not responding..'))
+  },
 }
 </script>
 
@@ -24,5 +38,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+ul {
+  list-style-type: none;
 }
 </style>
