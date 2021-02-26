@@ -30,3 +30,13 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+ul {
+  padding: 0;
+}
+.home {
+  max-width: 800px;
+  margin: auto;
+}
+</style>
