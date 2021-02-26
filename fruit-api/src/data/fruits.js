@@ -71,8 +71,13 @@ function post_new_async(fruit) {
   return axios.post(fruit_api_base_url + '/fruit', fruit)
 }
 
+function delete_one_async(fruit_id) {
+  return axios.delete(fruit_api_base_url + '/fruit/' + fruit_id)
+}
+
 export default {
   get_one_async,
   get_all_async,
   post_new_async,
+  delete_one_async,
 }
