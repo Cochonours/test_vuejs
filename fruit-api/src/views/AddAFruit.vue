@@ -40,7 +40,7 @@
       <div>
         <label for="expires">Expiration date:</label>
         <input type="date" name="expires" v-model="fruit.expires_date">
-        <input type="time" name="expires" v-model="fruit.expires_time">
+        <input type="time" name="expires_time" v-model="fruit.expires_time">
         <div class="error" v-if="!$v.fruit.expires.required">Expiration is required.</div>
       </div>
         <button type="submit">
