@@ -12,6 +12,7 @@
         <label for="image">Image path:</label>
         <input name="image" v-model="fruit.image">
         <div class="error" v-if="!$v.fruit.image.required">Image path is required.</div>
+        <div class="error" v-if="!$v.fruit.image.is_image_link">Image path is wrong.</div>
       </div>
       <div>
         <label for="price">Price:</label>
@@ -23,7 +24,7 @@
         <label for="color">Color (html):</label>
         <input name="color" v-model="fruit.color">
         <div class="error" v-if="!$v.fruit.color.required">Color is required.</div>
-        <div class="error" v-if="!$v.fruit.color.minLength || !$v.fruit.color.maxLength">Color is invalid.</div>
+        <div class="error" v-if="!$v.fruit.color.is_html_color">Color is invalid.</div>
       </div>
       <div>
         <label for="description">Description:</label>
@@ -52,7 +53,22 @@
 
 <script>
 import fruits_api from '@/data/fruits'
-import { required, maxLength, minLength, decimal } from 'vuelidate/lib/validators'
+import { required, minLength, decimal } from 'vuelidate/lib/validators'
+
+function is_html_color(value) {
+  if (!value) {
+    return true // Handled by "required"
+  }
+
+  return /^#([0-9A-F]{3}){1,2}$/i.test(value)
+}
+function is_image_link(value) {
+  if (!value) {
+    return true // Handled by "required"
+  }
+
+  return /^http.*\.(gif|jpe?g|png)$/i.test(value)
+}
 
 export default {
   name: 'Fruit',
@@ -62,7 +78,7 @@ export default {
         name: null,
         image: null,
         price: null,
-        color: null,
+        color: '#',
         description: null,
         taste: null,
         expires_date: null,
@@ -80,6 +96,7 @@ export default {
       },
       image: {
         required,
+        is_image_link,
       },
       price: {
         required,
@@ -88,8 +105,7 @@ export default {
       },
       color: {
         required,
-        minLength: minLength(4),
-        maxLength: maxLength(7),
+        is_html_color,
       },
       description: {
         required,
