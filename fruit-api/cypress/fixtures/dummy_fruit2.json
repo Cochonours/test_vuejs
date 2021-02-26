@@ -1,0 +1,11 @@
+{
+    "name": "Toto 2",
+    "image": "http://superimage2.jpg",
+    "price": "987",
+    "color": "#FFF",
+    "description": "Such a bad fruit",
+    "taste": "Charcoal",
+    "expires": "2021-02-18T00:00:00.000Z",
+    "isFruit": true,
+    "id": "3"
+  }

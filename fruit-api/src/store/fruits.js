@@ -34,17 +34,13 @@ function iterate(obj, find_cond, result_array) {
  */
 function extract_fruits_from_tree(dirty_fruits) {
   const number_of_fruits = dirty_fruits.fruitCount
-  console.warn(dirty_fruits)
-  console.warn(number_of_fruits)
 
   const fruits = []
   iterate(dirty_fruits, fruit_or_not => {
     // There is sometimes an object with isFruit as true but nothing else
-    if (fruit_or_not.isFruit) { console.log(fruit_or_not) }
     return fruit_or_not.isFruit && fruit_or_not.name
   }, fruits)
 
-  console.log(fruits)
   if (fruits.length !== number_of_fruits) {
     // Can't throw as I miss a fruit sometimes => error log for now
     console.error(`Couldn't extract the right fruits from the list`)
@@ -79,6 +75,22 @@ function delete_one_async(fruit_id) {
   return axios.delete(fruit_api_base_url + '/fruit/' + fruit_id)
 }
 
+
+
+export const mutations = {
+  SAVE_FRUITS(state, fruits) {
+    state.fruits = fruits;
+  },
+  ADD_FRUIT(state, fruit) {
+    if (!state.fruits.some(f => f.id === fruit.id)) {
+      state.fruits.push(fruit)
+    }
+  },
+  DELETE_FRUIT(state, fruit_id) {
+    state.fruits = state.fruits.filter(f => f.id !== fruit_id)
+  },
+}
+
 export default new Vuex.Store({
   state: {
     fruits: []
@@ -93,7 +105,7 @@ export default new Vuex.Store({
         .catch((e) => console.error(e) && alert('Fruit api not responding..'))
     },
     post_new_fruit({commit}, new_fruit) {
-      return post_new_async(new_fruit).then(() => commit('ADD_FRUIT', new_fruit))
+      return post_new_async(new_fruit).then(resp => commit('ADD_FRUIT', resp.data))
         .catch((e) => console.error(e) && alert('Fruit api not responding..'))
     },
     delete_fruit({commit}, fruit_id) {
@@ -101,15 +113,5 @@ export default new Vuex.Store({
         .catch((e) => console.error(e) && alert('Fruit api not responding..'))
     },
   },
-  mutations: {
-    SAVE_FRUITS(state, fruits) {
-      state.fruits = fruits;
-    },
-    ADD_FRUIT(state, fruit) {
-      state.fruits.push(fruit)
-    },
-    DELETE_FRUIT(state, fruit_id) {
-      state.fruits = state.fruits.filter(f => f.id !== fruit_id)
-    },
-  }
+  mutations,
 })

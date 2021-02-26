@@ -1,0 +1,23 @@
+{
+	"data": {
+		"what": {
+			"is": {
+				"here": {
+					"name": "Toto",
+					"image": "http://superimage.jpg",
+					"price": "123",
+					"color": "#333",
+					"description": "Such a great fruit",
+					"taste": "Rubber",
+					"expires": "2021-06-18T00:00:00.000Z",
+					"isFruit": true,
+					"id": "QGszlIK"
+				}
+			}
+		},
+		"amIaFruit": {
+			"id": "Jy0rtQv"
+		},
+    "fruitCount": 1
+  }
+}
