@@ -61,13 +61,13 @@ describe('Adding an empty fruit fails', () => {
 })
 
 describe('Deleting a fruit works', () => {
-  it('Visits the Home page and delete the first one', () => {
+  it('Visits the Home page and delete the last one', () => {
     cy.visit(url_base)
     cy.get('div.home').find('a.root').then(elem => {
       const number_of_fruits = elem.length
 
       if (number_of_fruits > 0) {
-        const first = cy.get('div.home').find('a.root').eq(0)
+        const first = cy.get('div.home').find('a.root').eq(-1)
         first.find('div.delete').invoke('show').find('button').click()
 
         cy.get('div.home').find('a.root').should('have.length', number_of_fruits - 1)

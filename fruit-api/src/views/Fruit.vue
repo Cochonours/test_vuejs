@@ -10,7 +10,6 @@
 
 
 <script>
-import fruit_api from '@/data/fruits'
 
 export default {
   name: 'Fruit',
@@ -24,12 +23,9 @@ export default {
       return price_str + ' €'
     }
   },
-  mounted() {
-    fruit_api.get_one_async(this.$route.params.id).then(resp => {
-        console.log(resp.data) 
-        this.fruit = resp.data
-      })
-     .catch((e) => console.error(e) && alert('Fruit api not responding..'))
+  created() {
+    this.$store.dispatch('get_fruit', this.$route.params.id)
+      .then((fruit) => this.fruit = fruit)
   },
   computed: {
     cssProps() {

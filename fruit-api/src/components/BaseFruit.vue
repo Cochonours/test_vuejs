@@ -13,8 +13,6 @@
 </template>
 
 <script>
-import fruit_api from '@/data/fruits'
-
 export default {
   name: 'BaseFruit',
   props: {
@@ -25,11 +23,7 @@ export default {
       return '/fruit/' + fruit_id
     },
     delete_fruit(fruit_id) {
-      return fruit_api.delete_one_async(fruit_id)
-        .then(() => {
-          this.$destroy()
-          this.$el.parentElement.removeChild(this.$el)
-        })
+      this.$store.dispatch('delete_fruit', fruit_id)
         .catch(() => alert("Error while deleting the fruit"))
     },
   },

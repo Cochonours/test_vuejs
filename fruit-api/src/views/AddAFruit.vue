@@ -52,7 +52,6 @@
 
 
 <script>
-import fruits_api from '@/data/fruits'
 import { required, minLength, decimal } from 'vuelidate/lib/validators'
 
 function is_html_color(value) {
@@ -140,7 +139,7 @@ export default {
         delete fruit.expires_date
         delete fruit.expires_time
 
-        fruits_api.post_new_async(fruit)
+        this.$store.dispatch('post_new_fruit', fruit)
           .then(() => alert("Post successful"))
           .catch(() => alert("Error while posting info"))
       }

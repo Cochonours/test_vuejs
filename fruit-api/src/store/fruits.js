@@ -1,6 +1,10 @@
 
 import axios from 'axios'
 
+import Vue from "vue";
+import Vuex from "vuex";
+Vue.use(Vuex);
+
 // TODO put in config
 const fruit_api_base_url = 'http://localhost:3000'
 
@@ -75,9 +79,37 @@ function delete_one_async(fruit_id) {
   return axios.delete(fruit_api_base_url + '/fruit/' + fruit_id)
 }
 
-export default {
-  get_one_async,
-  get_all_async,
-  post_new_async,
-  delete_one_async,
-}
+export default new Vuex.Store({
+  state: {
+    fruits: []
+  },
+  actions: {
+    load_fruits({commit}) {
+      return get_all_async().then(fruits => commit('SAVE_FRUITS', fruits))
+        .catch((e) => console.error(e) && alert('Fruit api not responding..'))
+    },
+    get_fruit(_, fruit_id) {
+      return get_one_async(fruit_id).then(resp => resp.data)
+        .catch((e) => console.error(e) && alert('Fruit api not responding..'))
+    },
+    post_new_fruit({commit}, new_fruit) {
+      return post_new_async(new_fruit).then(() => commit('ADD_FRUIT', new_fruit))
+        .catch((e) => console.error(e) && alert('Fruit api not responding..'))
+    },
+    delete_fruit({commit}, fruit_id) {
+      return delete_one_async(fruit_id).then(() => commit('DELETE_FRUIT', fruit_id))
+        .catch((e) => console.error(e) && alert('Fruit api not responding..'))
+    },
+  },
+  mutations: {
+    SAVE_FRUITS(state, fruits) {
+      state.fruits = fruits;
+    },
+    ADD_FRUIT(state, fruit) {
+      state.fruits.push(fruit)
+    },
+    DELETE_FRUIT(state, fruit_id) {
+      state.fruits = state.fruits.filter(f => f.id !== fruit_id)
+    },
+  }
+})

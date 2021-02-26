@@ -11,22 +11,16 @@
 <script>
 
 import BaseFruit from '@/components/BaseFruit.vue'
-import fruits_api from '@/data/fruits'
+import {mapState} from "vuex";
 
 export default {
   name: 'Home',
   components: {
     BaseFruit
   },
-  data() {
-    return {
-      fruits: []
-    }
-  },
-  mounted() {
-    // Get the list of fruits and update our data for display
-    fruits_api.get_all_async().then(fruits => this.fruits = fruits)
-     .catch((e) => console.error(e) && alert('Fruit api not responding..'))
+  computed: mapState(['fruits']),
+  created() {
+    this.$store.dispatch('load_fruits');
   },
 }
 </script>
