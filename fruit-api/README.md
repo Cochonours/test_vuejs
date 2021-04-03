@@ -1,5 +1,7 @@
 # fruit-api
 
+Small CRUD using Vuejs / Vuex with basic CSS.
+
 ## Project setup
 ```
 yarn install
